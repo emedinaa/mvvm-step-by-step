@@ -3,9 +3,14 @@ package com.emedinaa.kotlinmvvm.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.emedinaa.kotlinmvvm.data.OperationCallback
+import androidx.lifecycle.viewModelScope
+import com.emedinaa.kotlinmvvm.data.OperationResult
 import com.emedinaa.kotlinmvvm.model.Museum
 import com.emedinaa.kotlinmvvm.model.MuseumDataSource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MuseumViewModel(private val repository: MuseumDataSource):ViewModel() {
 
@@ -24,32 +29,32 @@ class MuseumViewModel(private val repository: MuseumDataSource):ViewModel() {
     /*
     If you require that the data be loaded only once, you can consider calling the method
     "loadMuseums()" on constructor. Also, if you rotate the screen, the service will not be called.
-
-    init {
-        //loadMuseums()
-    }
      */
+
+    fun cancel(){
+        viewModelScope.cancel()
+    }
 
     fun loadMuseums(){
         _isViewLoading.postValue(true)
-        repository.retrieveMuseums(object:OperationCallback<Museum>{
-            override fun onError(error: String?) {
-                _isViewLoading.postValue(false)
-                _onMessageError.postValue( error)
+        viewModelScope.launch {
+            var  result:OperationResult<Museum> = withContext(Dispatchers.IO){
+                repository.retrieveMuseums()
             }
-
-            override fun onSuccess(data: List<Museum>?) {
-                _isViewLoading.postValue(false)
-
-                if(data!=null){
-                    if(data.isEmpty()){
-                        _isEmptyList.postValue(true)
+            _isViewLoading.postValue(false)
+            when(result){
+                is OperationResult.Success ->{
+                    if(result.data.isNullOrEmpty()){
+                            _isEmptyList.postValue(true)
                     }else{
-                        _museums.value= data
+                        _museums.value = result.data
                     }
                 }
-            }
-        })
-    }
+                is OperationResult.Error ->{
+                    _onMessageError.postValue(result.exception)
 
+                }
+            }
+        }
+    }
 }

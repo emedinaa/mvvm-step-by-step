@@ -36,6 +36,7 @@ class MuseumAdapter(private var museums:List<Museum>):RecyclerView.Adapter<Museu
     class MViewHolder(view: View) : RecyclerView.ViewHolder(view){
         private val textViewName:TextView = view.textViewName
         private val imageView:ImageView = view.imageView
+
         fun bind(museum:Museum){
             textViewName.text = museum.name
             Glide.with(imageView.context).load(museum.photo).into(imageView)
