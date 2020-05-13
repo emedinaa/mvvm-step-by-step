@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emedinaa.kotlinmvvm.R
@@ -61,7 +62,7 @@ class MuseumActivity : AppCompatActivity() {
         })
      */
     private fun setupViewModel(){
-        viewModel = ViewModelProviders.of(this,ViewModelFactory(Injection.providerRepository())).get(MuseumViewModel::class.java)
+        viewModel = ViewModelProvider(this,ViewModelFactory(Injection.providerRepository())).get(MuseumViewModel::class.java)
         viewModel.museums.observe(this,renderMuseums)
 
         viewModel.isViewLoading.observe(this,isViewLoadingObserver)
