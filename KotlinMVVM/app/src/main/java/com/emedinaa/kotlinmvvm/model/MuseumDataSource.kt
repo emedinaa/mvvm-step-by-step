@@ -1,9 +1,7 @@
 package com.emedinaa.kotlinmvvm.model
 
-import com.emedinaa.kotlinmvvm.data.OperationCallback
+import androidx.lifecycle.LiveData
 
 interface MuseumDataSource {
-
-    fun retrieveMuseums(callback: OperationCallback<Museum>)
-    fun cancel()
+    suspend fun retrieveMuseums():List<Museum>
 }
