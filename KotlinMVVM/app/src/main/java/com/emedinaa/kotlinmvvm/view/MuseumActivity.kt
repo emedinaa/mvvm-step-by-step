@@ -40,30 +40,14 @@ class MuseumActivity : AppCompatActivity() {
 
     //ui
     private fun setupUI(){
-        adapter= MuseumAdapter(viewModel.museums.value?: emptyList())
+        adapter= MuseumAdapter( emptyList())
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter= adapter
     }
 
     //viewmodel
-    /**
-        //Consider this if ViewModel class don't require parameters.
-        viewModel = ViewModelProviders.of(this).get(MuseumViewModel::class.java)
-
-        //if you require any parameters to  the ViewModel consider use a ViewModel Factory
-        //viewModel = ViewModelProviders.of(this,ViewModelFactory(Injection.providerRepository())).get(MuseumViewModel::class.java)
-        viewModel = ViewModelProvider(this,Injection.provideViewModelFactory()).get(MuseumViewModel::class.java)
-
-        //Anonymous observer implementation
-        viewModel.museums.observe(this,Observer<List<Museum>> {
-            Log.v("CONSOLE", "data updated $it")
-            adapter.update(it)
-        })
-     */
     private fun setupViewModel(){
         viewModel = ViewModelProvider(this,Injection.provideViewModelFactory()).get(MuseumViewModel::class.java)
-        //viewModel = ViewModelProvider(this,ViewModelFactory(Injection.providerRepository())).get(MuseumViewModel::class.java)
-        //viewModel = ViewModelProviders.of(this,ViewModelFactory(Injection.providerRepository())).get(MuseumViewModel::class.java)
         viewModel.museums.observe(this,renderMuseums)
 
         viewModel.isViewLoading.observe(this,isViewLoadingObserver)
