@@ -23,7 +23,6 @@ class MVVMUnitTest {
     @Mock
     private lateinit var context: Application
 
-
     private lateinit var viewModel:MuseumViewModel
 
     private lateinit var isViewLoadingObserver:Observer<Boolean>
