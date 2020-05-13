@@ -24,28 +24,27 @@ class MuseumViewModel(private val repository: MuseumDataSource):ViewModel() {
     /*
     If you require that the data be loaded only once, you can consider calling the method
     "loadMuseums()" on constructor. Also, if you rotate the screen, the service will not be called.
-
+     */
     init {
         //loadMuseums()
     }
-     */
 
     fun loadMuseums(){
         _isViewLoading.postValue(true)
-        repository.retrieveMuseums(object:OperationCallback<Museum>{
-            override fun onError(error: String?) {
+        repository.retrieveMuseums(object:OperationCallback{
+            override fun onError(obj: Any?) {
                 _isViewLoading.postValue(false)
-                _onMessageError.postValue( error)
+                _onMessageError.postValue( obj)
             }
 
-            override fun onSuccess(data: List<Museum>?) {
+            override fun onSuccess(obj: Any?) {
                 _isViewLoading.postValue(false)
 
-                if(data!=null){
-                    if(data.isEmpty()){
+                if(obj!=null && obj is List<*>){
+                    if(obj.isEmpty()){
                         _isEmptyList.postValue(true)
                     }else{
-                        _museums.value= data
+                        _museums.value= obj as List<Museum>
                     }
                 }
             }

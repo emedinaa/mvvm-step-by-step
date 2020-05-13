@@ -1,6 +1,6 @@
 package com.emedinaa.kotlinmvvm.data
 
-interface OperationCallback<T> {
-    fun onSuccess(data:List<T>?)
-    fun onError(error:String?)
+interface OperationCallback {
+    fun onSuccess(obj:Any?)
+    fun onError(obj:Any?)
 }

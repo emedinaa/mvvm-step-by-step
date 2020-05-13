@@ -4,6 +4,6 @@ import com.emedinaa.kotlinmvvm.data.OperationCallback
 
 interface MuseumDataSource {
 
-    fun retrieveMuseums(callback: OperationCallback<Museum>)
+    fun retrieveMuseums(callback: OperationCallback)
     fun cancel()
 }
