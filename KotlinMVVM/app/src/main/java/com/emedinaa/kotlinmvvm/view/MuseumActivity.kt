@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emedinaa.kotlinmvvm.R
 import com.emedinaa.kotlinmvvm.di.Injection
