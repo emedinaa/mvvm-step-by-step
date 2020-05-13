@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emedinaa.kotlinmvvm.R
 import com.emedinaa.kotlinmvvm.di.Injection
@@ -13,7 +13,6 @@ import com.emedinaa.kotlinmvvm.model.Museum
 import com.emedinaa.kotlinmvvm.viewmodel.MuseumViewModel
 import com.emedinaa.kotlinmvvm.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_museum.*
-import kotlinx.android.synthetic.main.layout_error.*
 
 class MuseumActivity : AppCompatActivity() {
 
@@ -42,7 +41,7 @@ class MuseumActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel(){
-        viewModel = ViewModelProviders.of(this,ViewModelFactory(Injection.providerRepository())).get(MuseumViewModel::class.java)
+        viewModel = ViewModelProvider(this,ViewModelFactory(Injection.providerRepository())).get(MuseumViewModel::class.java)
     }
 
     //observers
