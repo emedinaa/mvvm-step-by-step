@@ -14,7 +14,7 @@ class MuseumRepository:MuseumDataSource {
 
     private var call:Call<MuseumResponse>?=null
 
-    override fun retrieveMuseums(callback: OperationCallback<Museum>) {
+    override fun retrieveMuseums(callback: OperationCallback) {
         call=ApiClient.build()?.museums()
         call?.enqueue(object :Callback<MuseumResponse>{
             override fun onFailure(call: Call<MuseumResponse>, t: Throwable) {
