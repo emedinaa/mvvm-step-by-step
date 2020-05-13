@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.emedinaa.kotlinmvvm.data.OperationCallback
 import com.emedinaa.kotlinmvvm.model.Museum
 import com.emedinaa.kotlinmvvm.model.MuseumDataSource
+import com.emedinaa.kotlinmvvm.model.MuseumRepository
 
 class MuseumViewModel(private val repository: MuseumDataSource):ViewModel() {
 
+    //private val nRepository = MuseumRepository()
     private val _museums = MutableLiveData<List<Museum>>().apply { value = emptyList() }
     val museums: LiveData<List<Museum>> = _museums
 
