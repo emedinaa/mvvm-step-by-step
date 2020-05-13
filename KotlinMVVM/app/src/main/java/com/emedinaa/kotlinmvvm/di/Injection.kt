@@ -1,21 +1,24 @@
 package com.emedinaa.kotlinmvvm.di
 
-import androidx.lifecycle.ViewModelProvider
-import com.emedinaa.kotlinmvvm.model.MuseumDataSource
-import com.emedinaa.kotlinmvvm.model.MuseumRepository
-import com.emedinaa.kotlinmvvm.viewmodel.MuseumViewModel
-import com.emedinaa.kotlinmvvm.viewmodel.ViewModelFactory
+import android.content.Context
+import com.emedinaa.kotlinmvvm.data.db.DbDataSource
+import com.emedinaa.kotlinmvvm.data.db.MuseumDbDataSource
+import com.emedinaa.kotlinmvvm.data.remote.MuseumRemoteDataSource
+import com.emedinaa.kotlinmvvm.model.MuseumDbRepository
+import com.emedinaa.kotlinmvvm.model.MuseumRemoteRemoteRepository
 
 object Injection {
 
-    private val museumDataSource:MuseumDataSource = MuseumRepository()
-    private val museumViewModelFactory = ViewModelFactory(museumDataSource)
+    private val museumRepository = MuseumRemoteRemoteRepository()
 
-    fun providerRepository():MuseumDataSource{
-        return museumDataSource
+    private lateinit var dbDataSource:DbDataSource
+    private lateinit var museumDbRepository:MuseumDbRepository
+
+    fun setup(context:Context){
+        dbDataSource = MuseumDbDataSource(context)
+        museumDbRepository = MuseumDbRepository(dbDataSource)
     }
 
-    fun provideViewModelFactory(): ViewModelProvider.Factory{
-        return museumViewModelFactory
-    }
+    fun providerDBRepository(): MuseumDbRepository = museumDbRepository
+    fun providerRemoteRepository(): MuseumRemoteDataSource = museumRepository
 }
