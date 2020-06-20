@@ -8,7 +8,6 @@ import com.emedinaa.kotlinmvvm.data.OperationResult
 import com.emedinaa.kotlinmvvm.model.Museum
 import com.emedinaa.kotlinmvvm.model.MuseumDataSource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -30,10 +29,6 @@ class MuseumViewModel(private val repository: MuseumDataSource):ViewModel() {
     If you require that the data be loaded only once, you can consider calling the method
     "loadMuseums()" on constructor. Also, if you rotate the screen, the service will not be called.
      */
-
-    fun cancel(){
-        viewModelScope.cancel()
-    }
 
     fun loadMuseums(){
         _isViewLoading.postValue(true)
