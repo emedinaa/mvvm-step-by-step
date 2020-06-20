@@ -9,7 +9,6 @@ import com.emedinaa.kotlinmvvm.model.Museum
 import com.emedinaa.kotlinmvvm.data.remote.MuseumRemoteDataSource
 import com.emedinaa.kotlinmvvm.model.MuseumDbRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -36,9 +35,5 @@ class MuseumViewModel(private val remoteRepository: MuseumRemoteDataSource,
                 }
             }
         }
-    }
-
-    fun cancel(){
-        viewModelScope.cancel()
     }
 }
